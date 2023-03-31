@@ -1,4 +1,4 @@
-FROM php:7.4-fpm
+FROM php:8.2-fpm
 
 RUN apt-get update
 RUN apt-get install -y vim
@@ -11,3 +11,9 @@ RUN docker-php-ext-install pdo_mysql redis
 COPY php.ini /usr/local/etc/php/
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+
+# WORKDIR /var/www/html
+
+EXPOSE 9000
+
+CMD ["php-fpm", "-F", "-R", "-O"]
